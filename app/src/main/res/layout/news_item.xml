@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="cardClickListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
+            name="newsItem"
+            type="com.sarthak.mynewsapplication.domain.model.NewsItem"/>
+        <variable
+            name="bookmarkClickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="@{cardClickListener}"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/card_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/news_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="1"
+                    android:text="@{newsItem.title}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="Russia produces new kamikaze drone with Chinese engine, say European intel sources - Reuters" />
+
+                <ImageButton
+                    android:id="@+id/icon_button_bookmark"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="4dp"
+                    android:layout_weight="0"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:contentDescription="Bookmark News Button"
+                    android:onClick="@{bookmarkClickListener}"
+                    app:srcCompat="@drawable/baseline_bookmark_border_24" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_head">
+
+                <ImageView
+                    android:id="@+id/news_image"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="News Image"
+                    android:scaleType="centerInside"
+                    app:imageFromUrl="@{newsItem.urlToImage}"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/news_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="4dp"
+                        android:minLines="3"
+                        android:text="@{newsItem.description}"
+                        tools:text="Almost all warnings for what had been Category 2 Hurricane Francine were canceled by Thursday night, a day after the storm named slammed into the Louisiana coast with heavy rains and 100-mph winds." />
+
+                    <TextView
+                        android:id="@+id/news_source"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:minLines="1"
+                        android:text="@{newsItem.source}"
+                        tools:text="NBC News" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>
