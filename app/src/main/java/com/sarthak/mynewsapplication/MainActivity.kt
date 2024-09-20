@@ -1,6 +1,7 @@
 package com.sarthak.mynewsapplication
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -17,25 +18,10 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel: NewsViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val adapter = NewsAdapter()
-        binding.newsItemList.adapter = adapter
-        subscribeUi(adapter)
-
-    }
-
-    private fun subscribeUi(adapter: NewsAdapter) {
-        lifecycleScope.launch {
-            viewModel.uiState.flowWithLifecycle(lifecycle)
-                .collectLatest { state ->
-                    adapter.submitList(state.newsResponse.newsItems)
-                }
-        }
     }
 }

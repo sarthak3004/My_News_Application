@@ -76,23 +76,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_head">
 
-                <ImageView
-                    android:id="@+id/news_image"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="4dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="News Image"
-                    android:scaleType="centerInside"
-                    app:imageFromUrl="@{newsItem.urlToImage}"/>
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:layout_marginEnd="4dp"
                     android:layout_weight="2"
                     android:orientation="vertical">
 
@@ -100,6 +87,7 @@
                         android:id="@+id/news_description"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
                         android:minLines="3"
                         android:text="@{newsItem.description}"
@@ -109,10 +97,23 @@
                         android:id="@+id/news_source"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginBottom="4dp"
                         android:minLines="1"
                         android:text="@{newsItem.source}"
                         tools:text="NBC News" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/news_image"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="News Image"
+                    android:scaleType="centerInside"
+                    app:imageFromUrl="@{newsItem.urlToImage}"/>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
