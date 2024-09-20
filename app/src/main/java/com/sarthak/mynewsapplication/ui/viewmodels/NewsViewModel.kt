@@ -2,9 +2,11 @@ package com.sarthak.mynewsapplication.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sarthak.mynewsapplication.domain.model.NewsItem
 import com.sarthak.mynewsapplication.domain.model.NewsResponse
 import com.sarthak.mynewsapplication.domain.repository.NewsRepository
 import com.sarthak.mynewsapplication.utils.FetchResult
+import com.sarthak.mynewsapplication.utils.toBookmarkNewsItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +24,40 @@ class NewsViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             getNewsList()
+        }
+    }
+
+    private suspend fun addBookmark(newsItem: NewsItem) {
+        newsRepository.addBookmarkedNewsItem(newsItem.toBookmarkNewsItem())
+    }
+
+    private suspend fun removeBookmark(title: String) {
+        newsRepository.removeBookmarkedNewsItem(title)
+    }
+
+    private fun isBookmarked(title: String): Boolean {
+        return newsRepository.isBookmarked(title)
+    }
+
+    suspend fun toggleBookmark(newsItem: NewsItem) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if(isBookmarked(newsItem.title)) {
+                removeBookmark(newsItem.title)
+            } else {
+                addBookmark(newsItem)
+            }
+            val updatedNewsItems = _uiState.value.newsResponse.newsItems.map { item ->
+                if (item.title == newsItem.title) {
+                    item.copy(isBookmarked = isBookmarked(newsItem.title))
+                } else {
+                    item
+                }
+            }
+            _uiState.value = _uiState.value.copy(
+                newsResponse = _uiState.value.newsResponse.copy(
+                    newsItems = updatedNewsItems
+                )
+            )
         }
     }
 

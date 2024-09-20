@@ -1,11 +1,16 @@
 package com.sarthak.mynewsapplication.di
 
+import android.content.Context
+import androidx.room.Room
+import com.sarthak.mynewsapplication.data.local.BookmarkedNewsDao
+import com.sarthak.mynewsapplication.data.local.BookmarkedNewsDatabase
 import com.sarthak.mynewsapplication.data.remote.api.NewsApi
 import com.sarthak.mynewsapplication.data.repository.NewsRepositoryImpl
 import com.sarthak.mynewsapplication.domain.repository.NewsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -37,7 +42,23 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideNewsRepository(newsApi: NewsApi): NewsRepository {
-        return NewsRepositoryImpl(newsApi)
+    fun provideDatabase(@ApplicationContext context: Context): BookmarkedNewsDatabase {
+        return Room.databaseBuilder(
+            context,
+            BookmarkedNewsDatabase::class.java,
+            "bookmarked_news_database"
+        ).build()
     }
+
+    @Provides
+    fun provideDao(database: BookmarkedNewsDatabase): BookmarkedNewsDao {
+        return database.bookmarkedNewsDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsRepository(newsApi: NewsApi, bookmarkedNewsDao: BookmarkedNewsDao): NewsRepository {
+        return NewsRepositoryImpl(newsApi, bookmarkedNewsDao)
+    }
+
 }

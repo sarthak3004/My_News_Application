@@ -12,8 +12,10 @@ import com.sarthak.mynewsapplication.adapters.NewsAdapter
 import com.sarthak.mynewsapplication.databinding.FragmentNewsBinding
 import com.sarthak.mynewsapplication.ui.viewmodels.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
@@ -27,7 +29,13 @@ class NewsFragment : Fragment() {
         val binding = FragmentNewsBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
-        val adapter = NewsAdapter()
+        val adapter = NewsAdapter(
+            onBookmarkClick = { newsItem ->
+                lifecycleScope.launch {
+                    viewModel.toggleBookmark(newsItem)
+                }
+            }
+        )
         binding.newsItemList.adapter = adapter
         lifecycleScope.launch {
             viewModel.uiState.flowWithLifecycle(lifecycle)
