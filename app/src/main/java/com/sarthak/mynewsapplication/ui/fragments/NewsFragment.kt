@@ -1,6 +1,8 @@
 package com.sarthak.mynewsapplication.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +20,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+const val TAG2 = "FragmentNews"
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
     private val viewModel: NewsViewModel by activityViewModels()
@@ -67,5 +70,43 @@ class NewsFragment : Fragment() {
                 }
         }
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG2, "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG2, "onPause")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG2, "onStart")
+        lifecycleScope.launch {
+            viewModel.refresh()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG2, "onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG2, "onDestroy")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d(TAG2, "onDetach")
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d(TAG2, "onAttach")
     }
 }

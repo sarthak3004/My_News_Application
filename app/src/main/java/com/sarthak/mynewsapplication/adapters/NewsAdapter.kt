@@ -2,12 +2,14 @@ package com.sarthak.mynewsapplication.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sarthak.mynewsapplication.R
 import com.sarthak.mynewsapplication.databinding.NewsItemBinding
 import com.sarthak.mynewsapplication.domain.model.NewsItem
+import com.sarthak.mynewsapplication.ui.fragments.HomeFragmentDirections
 
 class NewsAdapter(
     private val onBookmarkClick: (NewsItem) -> Unit
@@ -45,6 +47,10 @@ class NewsAdapter(
                 executePendingBindings()
                 setBookmarkClickListener {
                     onBookmarkClick(item)
+                }
+                setCardClickListener { it ->
+                    val direction = HomeFragmentDirections.actionNavigationHomeToNavigationNewsDetail(item)
+                    it.findNavController().navigate(direction)
                 }
             }
         }

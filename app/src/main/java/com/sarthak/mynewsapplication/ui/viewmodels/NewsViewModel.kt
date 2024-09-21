@@ -101,6 +101,13 @@ class NewsViewModel @Inject constructor(
             }
         }
     }
+
+    suspend fun refresh() {
+        viewModelScope.launch(Dispatchers.IO) {
+            getNewsList()
+            getBookmarks()
+        }
+    }
 }
 
 data class NewsUiState(

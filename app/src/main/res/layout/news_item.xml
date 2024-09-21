@@ -28,19 +28,21 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimaryContainer">
 
             <LinearLayout
                 android:id="@+id/card_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:background="?attr/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/news_title"
+                    android:id="@+id/constraint_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -48,9 +50,9 @@
                     android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:text="@{newsItem.title}"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    android:textColor="?attr/colorOnPrimary"
                     tools:text="Russia produces new kamikaze drone with Chinese engine, say European intel sources - Reuters" />
 
                 <ImageButton
@@ -61,7 +63,8 @@
                     android:layout_margin="4dp"
                     android:layout_weight="0"
                     android:background="?selectableItemBackgroundBorderless"
-                    android:contentDescription="Bookmark News Button"
+                    app:tint="?attr/colorOnPrimary"
+                    android:contentDescription="@string/bookmark_article_button_content_description"
                     android:onClick="@{bookmarkClickListener}"
                     app:srcCompat="@drawable/baseline_bookmark_border_24" />
 
@@ -91,6 +94,7 @@
                         android:layout_marginBottom="4dp"
                         android:minLines="3"
                         android:text="@{newsItem.description}"
+                        android:textColor="?attr/colorOnPrimaryContainer"
                         tools:text="Almost all warnings for what had been Category 2 Hurricane Francine were canceled by Thursday night, a day after the storm named slammed into the Louisiana coast with heavy rains and 100-mph winds." />
 
                     <TextView
@@ -100,6 +104,7 @@
                         android:layout_marginBottom="4dp"
                         android:minLines="1"
                         android:text="@{newsItem.source}"
+                        android:textColor="?attr/colorOnPrimaryContainer"
                         tools:text="NBC News" />
                 </LinearLayout>
 

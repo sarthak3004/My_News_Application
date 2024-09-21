@@ -10,5 +10,22 @@
             android:name="com.sarthak.mynewsapplication.ui.fragments.HomeFragment"
             android:label="Home"
             tools:layout="@layout/fragment_home" >
+                <action android:id="@+id/action_navigation_home_to_navigation_news_detail"
+                    app:destination="@id/navigation_news_detail"
+                    app:enterAnim="@anim/slide_in_right"
+                    app:exitAnim="@anim/slide_out_left"
+                    app:popEnterAnim="@anim/slide_in_left"
+                    app:popExitAnim="@anim/slide_out_right"/>
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/navigation_news_detail"
+            android:name="com.sarthak.mynewsapplication.ui.fragments.NewsDetailFragment"
+            android:label="News Detail"
+            tools:layout="@layout/fragment_news_detail">
+                <argument
+                    android:name="newsItem"
+                    app:argType="com.sarthak.mynewsapplication.domain.model.NewsItem" />
         </fragment>
 </navigation>

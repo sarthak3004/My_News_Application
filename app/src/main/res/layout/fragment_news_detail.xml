@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.fragments.NewsDetailFragment">
+
+    <data>
+        <variable
+            name="openUrlClickListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
+            name="newsItem"
+            type="com.sarthak.mynewsapplication.domain.model.NewsItem"/>
+        <variable
+            name="bookmarkClickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:colorBackground">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorPrimary"
+                    android:minHeight="?attr/actionBarSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/go_back_button"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="0"
+                            android:background="?selectableItemBackgroundBorderless"
+                            android:contentDescription="@string/bookmark_article_button_content_description"
+                            android:onClick="@{bookmarkClickListener}"
+                            android:src="@drawable/baseline_arrow_back_24"
+                            app:tint="?attr/colorOnPrimary" />
+
+                        <TextView
+                            android:id="@+id/header_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="start|center_vertical"
+                            android:text="@string/news_detail_screen_title"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="18sp" />
+
+                        <ImageButton
+                            android:id="@+id/bookmark_button"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="0"
+                            android:background="?selectableItemBackgroundBorderless"
+                            android:contentDescription="@string/bookmark_article_button_content_description"
+                            android:onClick="@{bookmarkClickListener}"
+                            android:src="@drawable/baseline_bookmark_border_24"
+                            app:tint="?attr/colorOnPrimary" />
+
+                        <ImageButton
+                            android:id="@+id/open_url_button"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="0"
+                            android:background="?selectableItemBackgroundBorderless"
+                            android:contentDescription="@string/open_in_browser_button_content_description"
+                            android:onClick="@{openUrlClickListener}"
+                            android:src="@drawable/baseline_open_in_browser_24"
+                            app:tint="?attr/colorOnPrimary" />
+
+                    </LinearLayout>
+                </androidx.appcompat.widget.Toolbar>
+
+                <ImageView
+                    android:id="@+id/news_top_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/news_image_content_description"
+                    app:imageFromUrl="@{newsItem.urlToImage}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                    tools:src="@tools:sample/backgrounds/scenic" />
+
+                <TextView
+                    android:id="@+id/news_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@{newsItem.title}"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/news_top_image"
+                    tools:text="Russia produces new kamikaze drone with Chinese engine, say European intel sources - Reuters" />
+
+                <TextView
+                    android:id="@+id/news_publish_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@{newsItem.publishedAt}"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/news_detail_source"
+                    tools:text="08/08/2024" />
+
+                <TextView
+                    android:id="@+id/news_detail_source"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@{newsItem.source}"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/news_title"
+                    tools:text="The Washington Post" />
+
+                <TextView
+                    android:id="@+id/news_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@{newsItem.content}"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/news_detail_source"
+                    tools:text="Almost all warnings for what had been Category 2 Hurricane Francine were canceled Thursday night, a day after the storm slammed into the Louisiana coast with heavy rains and 100-mph winds.\r\nBy late T… [+3892 chars]" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

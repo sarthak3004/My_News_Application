@@ -1,6 +1,8 @@
 package com.sarthak.mynewsapplication
 
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.sarthak.mynewsapplication.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
