@@ -8,9 +8,11 @@ import com.sarthak.mynewsapplication.domain.model.NewsItem
 import com.sarthak.mynewsapplication.domain.model.NewsResponse
 import com.sarthak.mynewsapplication.domain.repository.NewsRepository
 import com.sarthak.mynewsapplication.utils.FetchResult
+import com.sarthak.mynewsapplication.utils.toNewsItem
 import com.sarthak.mynewsapplication.utils.toNewsResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -51,7 +53,13 @@ class NewsRepositoryImpl @Inject constructor(
 
     override suspend fun removeBookmarkedNewsItem(title: String) = bookmarkedNewsDao.removeNewsItem(title)
 
-//    override fun getBookmarkedNewsItems(): Flow<List<NewsItem>> = bookmarkedNewsDao.getBookmarkedNews()
+    override fun getBookmarkedNewsItems(): List<NewsItem> {
+        val bookmarkedNewsItems = bookmarkedNewsDao.getBookmarkedNews()
+        val newsItems = bookmarkedNewsItems.map {
+            it.toNewsItem()
+        }
+        return  newsItems
+    }
 
     override fun isBookmarked(title: String): Boolean {
         return bookmarkedNewsDao.isBookmarked(title) == 1

@@ -10,6 +10,6 @@ interface NewsRepository {
     suspend fun getLatestNews(): Flow<FetchResult<NewsResponse>>
     suspend fun addBookmarkedNewsItem(bookmarkedNewsItem: BookmarkedNewsItem)
     suspend fun removeBookmarkedNewsItem(title: String)
-//    fun getBookmarkedNewsItems(): Flow<List<NewsItem>>
+    fun getBookmarkedNewsItems(): List<NewsItem>
     fun isBookmarked(title: String): Boolean
 }

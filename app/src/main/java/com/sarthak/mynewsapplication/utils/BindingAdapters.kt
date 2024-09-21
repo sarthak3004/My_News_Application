@@ -9,6 +9,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 @BindingAdapter("imageFromUrl")
 fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {
+        view.visibility = View.VISIBLE
         Glide.with(view.context)
             .load(imageUrl)
             .transition(DrawableTransitionOptions.withCrossFade())

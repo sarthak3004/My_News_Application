@@ -47,4 +47,5 @@ fun BookmarkedNewsItem.toNewsItem() = NewsItem(
     urlToImage = urlToImage,
     publishedAt = publishedAt,
     content = content,
+    isBookmarked = true
 )

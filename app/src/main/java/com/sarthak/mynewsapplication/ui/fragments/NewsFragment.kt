@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -19,7 +20,7 @@ import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
-    private val viewModel: NewsViewModel by viewModels()
+    private val viewModel: NewsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,11 +56,14 @@ class NewsFragment : Fragment() {
                         else -> {
                             binding.progressBar.visibility = View.GONE
                             binding.errorTextView.visibility = View.GONE
-                            binding.newsItemList.visibility = View.VISIBLE
-                            adapter.submitList(state.newsResponse.newsItems)
+                            if(state.newsResponse.newsItems.isEmpty()) {
+                                binding.noNewsTextView.visibility = View.VISIBLE
+                            } else {
+                                binding.newsItemList.visibility = View.VISIBLE
+                                adapter.submitList(state.newsResponse.newsItems)
+                            }
                         }
                     }
-                    adapter.submitList(state.newsResponse.newsItems)
                 }
         }
         return binding.root

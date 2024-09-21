@@ -16,8 +16,8 @@ interface BookmarkedNewsDao {
     @Query("DELETE FROM bookmarked_news WHERE title = :title")
     suspend fun removeNewsItem(title: String)
 
-//    @Query("SELECT * FROM bookmarked_news")
-//    fun getBookmarkedNews(): Flow<List<NewsItem>>
+    @Query("SELECT * FROM bookmarked_news")
+    fun getBookmarkedNews(): List<BookmarkedNewsItem>
 
     @Query("SELECT COUNT(*) FROM bookmarked_news WHERE title = :title")
     fun isBookmarked(title: String): Int

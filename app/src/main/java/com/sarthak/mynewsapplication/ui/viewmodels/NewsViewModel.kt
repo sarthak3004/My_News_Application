@@ -24,15 +24,22 @@ class NewsViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             getNewsList()
+            getBookmarks()
         }
+    }
+
+    private fun getBookmarks() {
+        _uiState.value = _uiState.value.copy(
+            bookmarks = newsRepository.getBookmarkedNewsItems()
+        )
     }
 
     private suspend fun addBookmark(newsItem: NewsItem) {
         newsRepository.addBookmarkedNewsItem(newsItem.toBookmarkNewsItem())
     }
 
-    private suspend fun removeBookmark(title: String) {
-        newsRepository.removeBookmarkedNewsItem(title)
+    private suspend fun removeBookmark(newsItem: NewsItem) {
+        newsRepository.removeBookmarkedNewsItem(newsItem.title)
     }
 
     private fun isBookmarked(title: String): Boolean {
@@ -42,10 +49,12 @@ class NewsViewModel @Inject constructor(
     suspend fun toggleBookmark(newsItem: NewsItem) {
         viewModelScope.launch(Dispatchers.IO) {
             if(isBookmarked(newsItem.title)) {
-                removeBookmark(newsItem.title)
+                removeBookmark(newsItem)
             } else {
                 addBookmark(newsItem)
             }
+
+            val updatedBookmarks = newsRepository.getBookmarkedNewsItems()
             val updatedNewsItems = _uiState.value.newsResponse.newsItems.map { item ->
                 if (item.title == newsItem.title) {
                     item.copy(isBookmarked = isBookmarked(newsItem.title))
@@ -54,8 +63,9 @@ class NewsViewModel @Inject constructor(
                 }
             }
             _uiState.value = _uiState.value.copy(
+                bookmarks = updatedBookmarks,
                 newsResponse = _uiState.value.newsResponse.copy(
-                    newsItems = updatedNewsItems
+                    newsItems = updatedNewsItems,
                 )
             )
         }
@@ -95,6 +105,7 @@ class NewsViewModel @Inject constructor(
 
 data class NewsUiState(
     val newsResponse: NewsResponse = NewsResponse(),
+    val bookmarks: List<NewsItem> = emptyList(),
     val isLoading: Boolean = false,
     val isError: Boolean = false,
     val errorMessage: String = ""
