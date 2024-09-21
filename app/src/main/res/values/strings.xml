@@ -6,4 +6,5 @@
     <string name="bookmark_article_button_content_description">Bookmark article button.</string>
     <string name="open_in_browser_button_content_description">Open in browser button.</string>
     <string name="news_image_content_description">News Image</string>
+    <string name="go_back_button_content_description">Go back button.</string>
 </resources>

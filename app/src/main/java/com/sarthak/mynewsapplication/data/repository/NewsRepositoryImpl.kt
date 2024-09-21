@@ -43,8 +43,15 @@ class NewsRepositoryImpl @Inject constructor(
             item.isBookmarked = bookmarkedNewsDao.isBookmarked(item.title) == 1
             item
         }
+        Log.d("FragmentNewsResponse", newsItems.toString())
+        val tempNewsItems = newsItems
+            .filter { it.title.isNotEmpty() }
+            .filter { it.title != "[Removed]" }
+            .filter { it.description.isNotEmpty() }
+            .filter { it.content.isNotEmpty() }
         val newsResponse = newsResponseDto.toNewsResponse().copy(
-            newsItems = newsItems
+            newsItems = tempNewsItems,
+            totalResults = tempNewsItems.size
         )
         emit(FetchResult.Success(data = newsResponse))
     }

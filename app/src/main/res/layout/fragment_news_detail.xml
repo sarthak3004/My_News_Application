@@ -15,6 +15,9 @@
         <variable
             name="bookmarkClickListener"
             type="android.view.View.OnClickListener" />
+        <variable
+            name="goBackClickListener"
+            type="android.view.View.OnClickListener" />
     </data>
 
 
@@ -40,7 +43,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/colorPrimary"
+                    android:background="?attr/colorTertiary"
                     android:minHeight="?attr/actionBarSize"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -58,10 +61,10 @@
                             android:layout_marginEnd="8dp"
                             android:layout_weight="0"
                             android:background="?selectableItemBackgroundBorderless"
-                            android:contentDescription="@string/bookmark_article_button_content_description"
-                            android:onClick="@{bookmarkClickListener}"
+                            android:contentDescription="@string/go_back_button_content_description"
+                            android:onClick="@{goBackClickListener}"
                             android:src="@drawable/baseline_arrow_back_24"
-                            app:tint="?attr/colorOnPrimary" />
+                            app:tint="?attr/colorOnTertiary" />
 
                         <TextView
                             android:id="@+id/header_text_view"
@@ -70,7 +73,7 @@
                             android:layout_weight="1"
                             android:gravity="start|center_vertical"
                             android:text="@string/news_detail_screen_title"
-                            android:textColor="?attr/colorOnPrimary"
+                            android:textColor="?attr/colorOnTertiary"
                             android:textSize="18sp" />
 
                         <ImageButton
@@ -84,7 +87,7 @@
                             android:contentDescription="@string/bookmark_article_button_content_description"
                             android:onClick="@{bookmarkClickListener}"
                             android:src="@drawable/baseline_bookmark_border_24"
-                            app:tint="?attr/colorOnPrimary" />
+                            app:tint="?attr/colorOnTertiary" />
 
                         <ImageButton
                             android:id="@+id/open_url_button"
@@ -96,7 +99,7 @@
                             android:contentDescription="@string/open_in_browser_button_content_description"
                             android:onClick="@{openUrlClickListener}"
                             android:src="@drawable/baseline_open_in_browser_24"
-                            app:tint="?attr/colorOnPrimary" />
+                            app:tint="?attr/colorOnTertiary" />
 
                     </LinearLayout>
                 </androidx.appcompat.widget.Toolbar>
@@ -141,7 +144,7 @@
                     android:layout_marginEnd="16dp"
                     android:text="@{newsItem.publishedAt}"
                     android:textColor="?attr/colorOnBackground"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/news_detail_source"
                     tools:text="08/08/2024" />
@@ -154,10 +157,27 @@
                     android:layout_marginTop="8dp"
                     android:text="@{newsItem.source}"
                     android:textColor="?attr/colorOnBackground"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/news_title"
                     tools:text="The Washington Post" />
+
+                <TextView
+                    android:id="@+id/news_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@{newsItem.description}"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textSize="22sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/news_detail_source"
+                    tools:text="Almost all warnings for what had been Category 2 Hurricane Francine were canceled Thursday night, a day after the storm slammed into the Louisiana coast with heavy rains and 100-mph winds.\r\nBy late T… [+3892 chars]" />
 
                 <TextView
                     android:id="@+id/news_content"
@@ -172,7 +192,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/news_detail_source"
+                    app:layout_constraintTop_toBottomOf="@+id/news_description"
                     tools:text="Almost all warnings for what had been Category 2 Hurricane Francine were canceled Thursday night, a day after the storm slammed into the Louisiana coast with heavy rains and 100-mph winds.\r\nBy late T… [+3892 chars]" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
